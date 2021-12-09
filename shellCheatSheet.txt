@@ -1,0 +1,101 @@
+chmod:
+read 4| write 2| execute 1
+chmod [???] filename
+
+
+touch:
+touch -t [[CC]YY]MMDDhhmm[.ss] filename
+
+
+basic skrypt:
+#!/bin/bash
+echo Podaj nazwe pliku
+read plik
+if [ -e $plik ]
+then
+echo Plik istnieje
+date
+else 
+echo Tworze plik
+date
+touch $plik 
+fi
+
+
+operowanie na historii: 
+fc -l       lista
+fc -l [?]    wykonanie komendy z historii o indeksie ?
+fc -e - xwr wykonanie ostatniej komendy z historii zaczynającej się od xwr
+history     lista
+!xwr        wykonanie ostatniej komendy z historii zaczynającej się od xwr
+!?          wykonanie komendy z historii o indeksie ?
+
+
+przekierowywania, potoki: 
+deskryptory:
+0 standardowe wejście (stdin)
+1 standardowe wyjście (stdout)
+2 wyjście błędów (stderr)
+Deskrytpory można umieścić przed operatorem przekierowania > aby uzyskać inne wyniki.
+domyślnie brany jest 1. (stdout)
+komenda > plik      Nadpisze nam plik wartością zwróconą przez komendę
+komenda >> plik     Dopisze do naszego pliku wartość zwróconej komendy
+komenda < plik      Wkłada zawartość pliku do stdin komendy
+
+można przekierować jeden strumień w drugi składnią np 2>&1 (error jako stdout)
+
+potok łączy stdout jednego procesu z stdin drugiego:
+komenda_1 | komenda_2
+
+
+czarne dziury w systemie:
+/dev/null
+/dev/zero 
+
+
+'manager zadań'
+ps - lista aktywnych procesów
+a lista / aux szczegóły / axjf drzewko 
+pgrep name - zwraca id procesow z taka nazwa 
+kill -9 zabija proces po id / pkill -9 - zabija proces po stringu
+
+
+Wyrażenia regularne:
+
+grep 
+-i case sensitive off | -c count lines | -v reverse | -n line number
+^word - słowo word 1. w wierszu | word$ - słowo word last w wierszu
+. - jakikolwiek, pojedyczny znak
+egrep
+przy bardziej skomplikowanych wyrażeniach regularnych, warto zamykać je w ''
+^(a|b)  - zaczyna sie z a lub b 
+^[a-d]  - zaczyna sie literami a,b,c lub d
+z{5}    - z wystepuje 5 razy
+z?      - z moze wystąpić raz, nie musi
+z*      - z może wystapic wiele razy albo wcale
+z+      - z wystapi przynajmniej raz
+\< \>   - empty string na poczatku i koncu
+fgrep
+fast grep, nie reaguje na żadne znaki specjalne, dosłowny string
+
+wc - word count
+-l/w/c/b lines/words/chars/bytes
+
+sort
+zwraca input w domyślnie alfabetycznym porządku, nie zmieniając pliku
+-r/n/k reverse/numeric/kolumna 
+sort -k 2n file (sortuj numerycznie wg drugiej kolumny)
+
+uniq
+zwraca input, bez powtarzających się linii
+
+seq
+tworzy sekwencję liczb 
+[początek, krok, koniec]
+domyślnie krok 1 i początek 1
+
+sed
+m.in. zamienia sekwencję znaków na inną
+sed 's/old/new/g' <oryginalnyplik >nowyplik
+
+Arhiwum: tar i find
