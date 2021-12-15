@@ -21,26 +21,22 @@ void loop(){
   digitalWrite(latchPin, LOW);
   shiftOut(dataPin, clockPin, LSBFIRST, states[pressCounter%10]);
   digitalWrite(latchPin, HIGH);
-  if(digitalRead(switchButton) == HIGH){
+  if(digitalRead(switchButton) == HIGH){                                // oczekiwanie na przejście do stanu liczenia
     pressCounter = 0;                                       
     delay(500);
   
     while(1){                                                   
       digitalWrite(latchPin, LOW);
-      shiftOut(dataPin, clockPin, LSBFIRST, states[10]);
+      shiftOut(dataPin, clockPin, LSBFIRST, states[10]);                // zapalone wszystkie znaki informują o uruchomionym zliczaniu
       digitalWrite(latchPin, HIGH);
-      if(digitalRead(countButton) == HIGH){
+      if(digitalRead(countButton) == HIGH){                             // wciśnięcie countButton inkrementuje wartość licznika
         delay(500);
         pressCounter ++;
       }
-      if(digitalRead(switchButton) == HIGH){                    
+      if(digitalRead(switchButton) == HIGH){                            //oczekiwanie na przejście spowrotem do stanu wyświetlania
       delay(500);
       break;
       }
     }
-  }
-
-
-
-  
+  }  
 }
